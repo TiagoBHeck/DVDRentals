@@ -1,0 +1,160 @@
+version: 2
+
+sources:
+  - name: postgres
+    database: DVDRental
+    schema: bronze
+    tables:
+      - name: rental
+        tags: ['rental']
+      - name: customer
+        tags: ['rental', 'customer']
+      - name: payment
+        tags: ['rental', 'payment', 'customer']
+      - name: inventory
+        tags: ['rental', 'store', 'inventory', 'film']
+      - name: film
+        tags: ['film', 'inventory', 'rental']
+      - name: film_category
+        tags: ['film_category', 'film']
+      - name: category
+        tags: ['film', 'category']
+      - name: staff
+        tags: ['staff', 'rental']
+      - name: address
+        tags: ['address', 'customer']
+
+
+models/staging:
+  - name: stg_rental
+    columns:
+      - name: rental_id
+        description: Table primary key
+        tests:
+          - unique  
+          - not_null        
+      - name: customer_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'customer')
+              field: customer_id
+      - name: inventory_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'inventory')
+              field: inventory_id
+      - name: staff_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'staff')
+              field: staff_id
+
+  - name: stg_customer
+    columns:
+      - name: customer_id
+        description: Table primary key
+        tests:
+          - unique  
+          - not_null        
+      - name: store_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'store')
+              field: store_id
+      - name: address_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'address')
+              field: address_id
+
+  - name: stg_film
+    columns:
+      - name: film_id
+        description: Table primary key
+        tests:
+          - unique  
+          - not_null        
+
+  - name: stg_inventory
+    columns:
+      - name: inventory_id
+        description: Table primary key
+        tests:
+          - unique  
+          - not_null        
+      - name: film_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'film')
+              field: film_id
+      - name: store_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'store')
+              field: store_id
+
+  - name: stg_payment
+    columns:
+      - name: payment_id
+        description: Table primary key
+        tests:
+          - unique  
+          - not_null        
+      - name: customer_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'customer')
+              field: customer_id
+      - name: staff_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'staff')
+              field: staff_id
+      - name: rental_id
+        description: Table foreign key
+        tests:
+          - unique
+          - not_null
+          - relationships:
+              to: source('postgres', 'rental')
+              field: rental_id
+
+  - name: stg_category
+    columns:
+      - name: category_id
+        description: Table primary key
+        tests:
+          - unique  
+          - not_null   
+
+
+models/intermediate:  
+  - name: int_film_category
+     

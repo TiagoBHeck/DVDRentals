@@ -1,0 +1,33 @@
+DVDRentals:
+  outputs:
+    dev:
+      type: "postgres"
+      host: "localhost"
+      user: "tiagobratzheck"
+      password: "tiagobratzheck"
+      port: 5432
+      dbname: "DVDRental"
+      schema: "bronze"
+      threads: 4
+
+    silver:
+      type: "postgres"
+      host: "localhost"
+      user: "tiagobratzheck"
+      password: "tiagobratzheck"
+      port: 5432
+      dbname: "DVDRental"
+      schema: "intermediate"
+      threads: 4
+      
+    prod:
+      type: "postgres"
+      host: "localhost"
+      user: "tiagobratzheck"
+      password: "tiagobratzheck"
+      port: 5432
+      dbname: "DVDRental"
+      schema: "analytics"
+      threads: 4
+
+  target: dev
