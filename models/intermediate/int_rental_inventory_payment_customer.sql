@@ -23,7 +23,7 @@ _customers AS(
 
 int_rental_inventory_payment_customer AS (
   SELECT _rentals.RentalId,
-         _rentals. rentalDate,
+         _rentals.rentalDate,
          _rentals.returnDate,
          _inventory.FilmId,
          _payments.Amount, 
