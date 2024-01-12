@@ -8,7 +8,8 @@
 
 ## About data source
 
-#### The set of tables used in this project consists of financial transaction data, customer and account data, information about location and date. This same database is used in DBT courses taught by the Data Engineering Academy of Brazil.
+#### The DVD rental database represents the business processes of a DVD rental store. It is one of the most used postgres databases for testing purposes.
+#### Check the database through the link [DVD rentals database](https://www.postgresqltutorial.com/postgresql-getting-started/postgresql-sample-database/).
 
 ## Source
 
